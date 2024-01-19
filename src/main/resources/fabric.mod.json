@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "oldanimationsfabric",
+  "version": "${version}",
+  "name": "OldAnimationsFabric",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/Jordon/OldAnimationsFabric"
+  },
+  "license": "GPL-3.0",
+  "icon": "assets/oldanimationsfabric/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "me.onlyjordon.oldanimationsfabric.client.OldAnimationsFabricClient"
+    ],
+    "main": [
+      "me.onlyjordon.oldanimationsfabric.OldAnimationsFabric"
+    ]
+  },
+  "mixins": [
+    "oldanimationsfabric.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

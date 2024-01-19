@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.onlyjordon.oldanimationsfabric.client.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "ClientPlayerInteractionManagerMixin",
+    "HeldItemFeatureRendererMixin",
+    "HeldItemRendererMixin",
+    "MinecraftClientMixin",
+    "MixinBipedEntityModel",
+    "MixinKeyboardInput",
+    "MixinPlayerEntityRenderer",
+    "PlayerEntityMixin",
+    "SwordItemMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+    "LivingEntityMixin"
+  ]
+}

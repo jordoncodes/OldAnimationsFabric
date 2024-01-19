@@ -1,0 +1,15 @@
+{
+  "text.config.old-animations.section.safe": "Safe Settings (Visual Changes, works on servers)",
+  "text.config.old-animations.option.oldBreakingAnim": "Old Block Breaking Animation (visual only)",
+  "text.config.old-animations.option.oldFishingRod": "Old Fishing Rod Animation (visual only)",
+  "text.config.old-animations.option.oldBow": "Old Bow Animation (visual only)",
+  "text.config.old-animations.option.swordBlocking": "Sword Blocking (visual only)",
+  "text.config.old-animations.option.oldEatingDrinkingAnim": "Old Eating/Drinking Animation (visual only)",
+  "text.config.old-animations.option.shieldSwordBlocking": "Sword Blocking (replacing the visuals for shields with swords)",
+  "text.config.old-animations.option.thirdPersonSwordBlocking": "Converts third person blocking animation to be closer to 1.7.10",
+  "text.config.old-animations.option.affectNewItems": "Affect New Items (applies visual changes to Tridents and Crossbows)",
+  "text.config.old-animations.section.unsafe": "Unsafe Settings (Non-visual, may get you banned on servers)",
+  "text.config.old-animations.option.fullOldBreaking": "Allows you to actually break blocks while using items (bannable)",
+  "text.config.old-animations.option.disableAttackCooldown": "Disables attack cooldown (possibly bannable, won't work on servers)",
+  "text.config.old-animations.option.swordBlockingSlowdown": "Slow down from Sword Blocking (could trigger strict anticheats)"
+}
