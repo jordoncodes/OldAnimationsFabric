@@ -1,11 +1,15 @@
 package me.onlyjordon.oldanimationsfabric.client.mixins;
 
+import me.onlyjordon.oldanimationsfabric.client.OldAnimationsFabricClient;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(ClientPlayerInteractionManager.class)
 public class ClientPlayerInteractionManagerMixin {
+
+    @Shadow private boolean breakingBlock;
 
     /**
      * @author onlyjordon
@@ -13,6 +17,7 @@ public class ClientPlayerInteractionManagerMixin {
      */
     @Overwrite
     public boolean isBreakingBlock() {
-        return false;
+        if (OldAnimationsFabricClient.CONFIG.oldBreakingAnim()) return false;
+        return this.breakingBlock;
     }
 }

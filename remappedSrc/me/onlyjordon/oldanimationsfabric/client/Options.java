@@ -1,10 +1,27 @@
 package me.onlyjordon.oldanimationsfabric.client;
 
 import io.wispforest.owo.config.annotation.Config;
+import io.wispforest.owo.config.annotation.Modmenu;
+import io.wispforest.owo.config.annotation.SectionHeader;
 
-@Config(name = "old-animations", wrapperName = "Old Animations")
+@Modmenu(modId = "oldanimationsfabric")
+@Config(name = "old-animations", wrapperName = "OldAnimations")
 public class  Options {
-    public static boolean FULL_1_7_MODE = false;
+    @SectionHeader("safe")
+    public boolean oldBreakingAnim = true;
+    public boolean swordBlocking = true;
+    public boolean oldFishingRod = true;
+    public boolean oldBow = true;
+    public boolean oldEatingDrinkingAnim = true;
+    public boolean shieldSwordBlocking = true;
+    public boolean thirdPersonSwordBlocking = true;
 
-    public static boolean NO_COOLDOWN = false;
+    public boolean affectNewItems = true;
+
+    @SectionHeader("unsafe")
+    public boolean swordBlockingSlowdown = false;
+    public boolean fullOldBreaking = false;
+    public boolean disableAttackCooldown = false;
+
+
 }

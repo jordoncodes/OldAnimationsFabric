@@ -1,5 +1,6 @@
 package me.onlyjordon.oldanimationsfabric.client.mixins;
 
+import me.onlyjordon.oldanimationsfabric.client.OldAnimationsFabricClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
@@ -18,15 +19,15 @@ public class MixinPlayerEntityRenderer {
     @Inject(at = @At(value = "RETURN"), method = "getArmPose", cancellable = true)
     private static void OldAnimationsFabric$getArmPose(AbstractClientPlayerEntity player, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
         ItemStack handStack = player.getStackInHand(hand);
-//        ItemStack offStack = player.getStackInHand(hand.equals(Hand.MAIN_HAND) ? Hand.OFF_HAND : Hand.MAIN_HAND);
-        if (handStack.getItem() instanceof SwordItem && MinecraftClient.getInstance().options.useKey.isPressed()) {
-            cir.setReturnValue(BipedEntityModel.ArmPose.BLOCK);
-        }
-
-//        if (offStack.getItem() instanceof ShieldItem && player.isUsingItem()) {
+        if (!(OldAnimationsFabricClient.CONFIG.shieldSwordBlocking() || OldAnimationsFabricClient.CONFIG.swordBlocking())) return;
+        if (!OldAnimationsFabricClient.CONFIG.thirdPersonSwordBlocking()) return;
+//        if (hand == Hand.MAIN_HAND && handStack.getItem() instanceof SwordItem &&
+//                (player.isBlocking() ||
+//                        (player == MinecraftClient.getInstance().player && MinecraftClient.getInstance().options.useKey.isPressed()))) {
 //            cir.setReturnValue(BipedEntityModel.ArmPose.BLOCK);
 //        }
-        if (handStack.getItem() instanceof ShieldItem) {
+        if (!OldAnimationsFabricClient.CONFIG.shieldSwordBlocking()) return;
+        if (handStack.getItem() instanceof ShieldItem && hand == Hand.OFF_HAND && player.getMainHandStack().getItem() instanceof SwordItem) {
             cir.setReturnValue(BipedEntityModel.ArmPose.EMPTY);
         }
     }

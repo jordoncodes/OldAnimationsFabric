@@ -1,5 +1,6 @@
 package me.onlyjordon.oldanimationsfabric.client.mixins;
 
+import me.onlyjordon.oldanimationsfabric.client.OldAnimationsFabricClient;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,16 +15,9 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> type, World world) {
         super(type, world);
     }
-    @Inject(method = "tick",
-            at = @At("HEAD"))
+    @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
-        this.lastAttackedTicks = 9999;
-    }
-    @ModifyConstant(method = "attack",
-            constant = @Constant(intValue = 1),
-            slice = @Slice(from = @At (value = "CONSTANT",
-                    args = "classValue=net.minecraft.item.SwordItem")))
-    private int constant(int tr_ue) {
-        return 0;
+        if (OldAnimationsFabricClient.CONFIG.disableAttackCooldown())
+            this.lastAttackedTicks = 9999;
     }
 }
