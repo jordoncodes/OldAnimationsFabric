@@ -8,9 +8,9 @@
     "HeldItemFeatureRendererMixin",
     "HeldItemRendererMixin",
     "MinecraftClientMixin",
-    "MixinBipedEntityModel",
-    "MixinKeyboardInput",
-    "MixinPlayerEntityRenderer",
+    "BipedEntityModelMixin",
+    "KeyboardInputMixin",
+    "PlayerEntityRendererMixin",
     "PlayerEntityMixin",
     "SwordItemMixin"
   ],
