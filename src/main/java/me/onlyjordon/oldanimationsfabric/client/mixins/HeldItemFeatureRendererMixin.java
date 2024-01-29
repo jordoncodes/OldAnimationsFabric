@@ -11,6 +11,7 @@ import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ShieldItem;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Hand;
@@ -36,8 +37,8 @@ public class HeldItemFeatureRendererMixin<T extends LivingEntity> {
     private void old_animations$renderItem(LivingEntity livingEntity, ItemStack stack, ModelTransformationMode transformationMode, Arm arm, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
         if (!OldAnimationsFabricClient.CONFIG.thirdPersonSwordBlocking()) return;
         if (livingEntity.getMainHandStack().getItem() instanceof SwordItem &&
-                ((livingEntity.getActiveItem().getItem() instanceof SwordItem) ||
-                (livingEntity == MinecraftClient.getInstance().player && livingEntity.getActiveItem().getItem() instanceof SwordItem))) {
+                ((livingEntity.getActiveItem().getItem() instanceof SwordItem
+                    || livingEntity.getActiveItem().getItem() instanceof ShieldItem))) {
             int i = arm == Arm.RIGHT ? 1 : -1;
             if (livingEntity.getStackInHand(Hand.MAIN_HAND).getItem() instanceof SwordItem) {
                 matrices.translate(i*-0.14142136f, -0.05f, i*0.14142136f);

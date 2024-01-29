@@ -6,6 +6,7 @@ import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ShieldItem;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.Arm;
 import org.spongepowered.asm.mixin.Final;
@@ -26,10 +27,15 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity>  extends Ani
     )
     private void swordBlocking(T entity, CallbackInfo ci) {
         if (!OldAnimationsFabricClient.CONFIG.thirdPersonSwordBlocking()) return;
-        if (entity.getMainHandStack().getItem() instanceof SwordItem &&
-                ((entity.getActiveItem().getItem() instanceof SwordItem) ||
-                        (entity == MinecraftClient.getInstance().player && entity.getActiveItem().getItem() instanceof SwordItem))) {
+        if ((entity.getMainHandStack().getItem() instanceof SwordItem) &&
+                ((entity.getActiveItem().getItem() instanceof SwordItem))) {
             this.rightArm.pitch = -0.75f;
+            this.rightArm.yaw = 0.0f;
+        }
+        if (entity.getMainHandStack().getItem() instanceof SwordItem &&
+                entity.getActiveItem().getItem() instanceof ShieldItem) {
+            this.rightArm.pitch = -0.75f;
+            this.rightArm.yaw = 0.0f;
         }
     }
 
@@ -60,12 +66,19 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity>  extends Ani
 
     @Shadow protected abstract void positionLeftArm(T entity);
 
+    @Shadow protected abstract void positionRightArm(T entity);
+
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/model/BipedEntityModel;animateArms(Lnet/minecraft/entity/LivingEntity;F)V",
             shift = At.Shift.BEFORE),method = "setAngles(Lnet/minecraft/entity/LivingEntity;FFFFF)V")
     private void OldAnimationsFabric$blockingAnimation(T livingEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {
         if (!OldAnimationsFabricClient.CONFIG.shieldSwordBlocking()) return;
-        if (livingEntity.getActiveItem().getItem() instanceof SwordItem) {
+        if (livingEntity.getMainHandStack().getItem() instanceof SwordItem &&
+                ((livingEntity.getActiveItem().getItem() instanceof SwordItem
+                        || livingEntity.getActiveItem().getItem() instanceof ShieldItem))) {
             this.positionLeftArm(livingEntity);
+            if (livingEntity != MinecraftClient.getInstance().player) {
+                this.positionRightArm(livingEntity);
+            }
         }
     }
 }

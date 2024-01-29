@@ -19,13 +19,8 @@ public class PlayerEntityRendererMixin {
     private static void OldAnimationsFabric$getArmPose(AbstractClientPlayerEntity player, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
         ItemStack handStack = player.getStackInHand(hand);
         if (!(OldAnimationsFabricClient.CONFIG.shieldSwordBlocking() || OldAnimationsFabricClient.CONFIG.swordBlocking() || OldAnimationsFabricClient.CONFIG.thirdPersonSwordBlocking())) return;
-//        if (hand == Hand.MAIN_HAND && handStack.getItem() instanceof SwordItem &&
-//                (player.isBlocking() ||
-//                        (player == MinecraftClient.getInstance().player && MinecraftClient.getInstance().options.useKey.isPressed()))) {
-//            cir.setReturnValue(BipedEntityModel.ArmPose.BLOCK);
-//        }
         if (!OldAnimationsFabricClient.CONFIG.shieldSwordBlocking()) return;
-        if (handStack.getItem() instanceof ShieldItem && hand == Hand.OFF_HAND && player.getMainHandStack().getItem() instanceof SwordItem) {
+        if (handStack.getItem() instanceof ShieldItem && hand == Hand.OFF_HAND && (player.getMainHandStack().getItem() instanceof SwordItem || player.getActiveItem().getItem() instanceof ShieldItem)) {
             cir.setReturnValue(BipedEntityModel.ArmPose.EMPTY);
         }
     }

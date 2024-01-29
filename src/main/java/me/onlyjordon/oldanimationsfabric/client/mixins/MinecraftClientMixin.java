@@ -1,7 +1,6 @@
 package me.onlyjordon.oldanimationsfabric.client.mixins;
 
 import me.onlyjordon.oldanimationsfabric.client.OldAnimationsFabricClient;
-import me.onlyjordon.oldanimationsfabric.client.Options;
 import me.onlyjordon.oldanimationsfabric.client.interfaces.IMinecraftClientMixin;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -14,7 +13,6 @@ import net.minecraft.entity.effect.StatusEffectUtil;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.network.packet.c2s.play.HandSwingC2SPacket;
-import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -24,9 +22,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin implements IMinecraftClientMixin {
@@ -61,6 +57,7 @@ public abstract class MinecraftClientMixin implements IMinecraftClientMixin {
 
     @Shadow @Nullable public ClientPlayerEntity player;
 
+    @Unique
     private void swingItem(Hand hand, ClientPlayerEntity player) {
         if (!player.handSwinging || player.handSwingTicks >= this.getHandSwingDuration(player) / 2 || player.handSwingTicks < 0) {
             player.handSwingTicks = -1;
@@ -74,6 +71,7 @@ public abstract class MinecraftClientMixin implements IMinecraftClientMixin {
         }
     }
 
+    @Unique
     private int getHandSwingDuration(ClientPlayerEntity player) {
         if (StatusEffectUtil.hasHaste(player)) {
             return 6 - (1 + StatusEffectUtil.getHasteAmplifier(player));
