@@ -167,7 +167,11 @@ public abstract class HeldItemRendererMixin {
     @Inject(at = @At("HEAD"), cancellable = true, method = "renderItem(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V")
     public void OldAnimationsFabric$hideShield(LivingEntity entity, ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
         if (!OldAnimationsFabricClient.CONFIG.shieldSwordBlocking()) return;
-        if (stack.getItem() instanceof ShieldItem && entity.getMainHandStack().getItem() instanceof SwordItem) ci.cancel();
+        if (stack.getItem() instanceof ShieldItem && entity.getMainHandStack().getItem() instanceof SwordItem) {
+            ci.cancel();
+            return;
+        }
+        if (entity.getActiveItem().getItem() instanceof SwordItem) entity.setCurrentHand(Hand.OFF_HAND); // use shield instead of sword :/
     }
 
     @Inject(method = "resetEquipProgress", at = @At("HEAD"), cancellable = true)
