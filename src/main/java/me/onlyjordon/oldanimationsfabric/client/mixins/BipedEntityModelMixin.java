@@ -39,6 +39,7 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> {
                 ((entity.getActiveItem().getItem() instanceof SwordItem) ||
                         (entity == MinecraftClient.getInstance().player && entity.getActiveItem().getItem() instanceof SwordItem))) {
             this.rightArm.pitch = -0.75f;
+            this.rightArm.yaw = 0.0f;
         }
     }
 
